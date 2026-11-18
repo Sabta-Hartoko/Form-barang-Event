@@ -2933,4 +2933,59 @@ try {
 })();
 </script>
 </body>
+  <form id="formBarang">
+    <label>Nama Pengisi:</label><br>
+    <input type="text" id="namaPengisi" required><br><br>
+
+    <label>Nama Event:</label><br>
+    <input type="text" id="namaEvent" required><br><br>
+
+    <label>Keterangan:</label><br>
+    <textarea id="keterangan" required></textarea><br><br>
+
+    <button type="submit" id="btnKirim">Kirim Data</button>
+</form>
+
+<p id="statusPesan"></p>
+
+<script>
+    // Masukkan URL Web App (/exec) yang Anda dapatkan dari Langkah 1
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwuoADV_J9iRz3Fk5RxyOWOSoFc2154reoqKwW3r9qAD0h06PYOkniR-hOXsoJBVjUZZw/exec'; 
+
+    const form = document.getElementById('formBarang');
+    const statusPesan = document.getElementById('statusPesan');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('btnKirim').disabled = true;
+        statusPesan.innerText = "Mengirim data ke Spreadsheet...";
+
+        // Objek data disesuaikan dengan parameter di Apps Script (prosesForm)
+        const dataForm = {
+            namaPengisi: document.getElementById('namaPengisi').value,
+            namaEvent: document.getElementById('namaEvent').value,
+            keterangan: document.getElementById('keterangan').value
+        };
+
+        // Mengirim data menggunakan POST ke Apps Script
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // Diperlukan agar tidak terkena CORS policy dari browser
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataForm)
+        })
+        .then(() => {
+            statusPesan.innerText = "Berhasil! Data telah dikirim ke Spreadsheet.";
+            form.reset();
+            document.getElementById('btnKirim').disabled = false;
+        })
+        .catch(error => {
+            console.error('Error!', error);
+            statusPesan.innerText = "Gagal mengirim data. Silakan coba lagi.";
+            document.getElementById('btnKirim').disabled = false;
+        });
+    });
+</script> 
 </html>
