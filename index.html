@@ -1228,7 +1228,7 @@ try {
     <form class="login-form" id="loginForm" novalidate>
       <label class="field login-field">
         <span class="field-label">Nama Pengguna <span class="req" aria-hidden="true">*</span></span>
-        <input class="cell-input" id="loginName" type="text" placeholder="Contoh: Admin Gudang" autocomplete="name" maxlength="60" aria-required="true" aria-describedby="loginError">
+        <input class="cell-input" id="loginName" type="text" placeholder="" autocomplete="name" maxlength="60" aria-required="true" aria-describedby="loginError">
         <span class="login-error" id="loginError" role="alert"></span>
       </label>
       <button type="submit" class="btn primary login-btn">Masuk</button>
@@ -2931,72 +2931,6 @@ try {
     init();
   }
 })();
-   <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Barang Event</title>
-</head>
-<body>
-
-    <h2>Form Input Barang Event</h2>
-
-    <!-- TEMPAT MENYEMATKAN KODE HTML FORM ANDA -->
-    <form id="formBarang">
-        <label>Nama Pengisi:</label><br>
-        <input type="text" id="namaPengisi" required><br><br>
-
-        <label>Nama Event:</label><br>
-        <input type="text" id="namaEvent" required><br><br>
-
-        <label>Keterangan:</label><br>
-        <textarea id="keterangan" required></textarea><br><br>
-
-        <button type="submit" id="btnKirim">Kirim Data</button>
-    </form>
-
-    <p id="statusPesan"></p>
-
-    <!-- SKRIP JAVASCRIPT UNTUK MENGIRIM DATA KE APPS SCRIPT -->
-    <script>
-        // Ganti URL di bawah ini dengan URL Web App (/exec) dari Google Apps Script Anda
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwuoADV_J9iRz3Fk5RxyOWOSoFc2154reoqKwW3r9qAD0h06PYOkniR-hOXsoJBVjUZZw/exec'; 
-
-        const form = document.getElementById('formBarang');
-        const statusPesan = document.getElementById('statusPesan');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            document.getElementById('btnKirim').disabled = true;
-            statusPesan.innerText = "Mengirim data ke Spreadsheet...";
-
-            const dataForm = {
-                namaPengisi: document.getElementById('namaPengisi').value,
-                namaEvent: document.getElementById('namaEvent').value,
-                keterangan: document.getElementById('keterangan').value
-            };
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataForm)
-            })
-            .then(() => {
-                statusPesan.innerText = "Berhasil! Data telah dikirim ke Spreadsheet.";
-                form.reset();
-                document.getElementById('btnKirim').disabled = false;
-            })
-            .catch(error => {
-                console.error('Error!', error);
-                statusPesan.innerText = "Gagal mengirim data. Silakan coba lagi.";
-                document.getElementById('btnKirim').disabled = false;
-            });
-        });
-    </script>
+</script>
 </body>
 </html>
-
